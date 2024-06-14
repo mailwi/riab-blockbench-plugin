@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "id": "ITEM_0001",
+      "name": "bullet",
+      "description": "",
+      "tags": [],
+      "properties": {},
+      "stackable": false,
+      "projectile": true,
+      "projectile_min_damage": 1,
+      "projectile_max_damage": 6,
+      "projectile_speed": 300,
+      "projectile_min_range": 1,
+      "projectile_max_range": 30,
+      "object": "bullet",
+      "usable": false
+    }
+  ],
+  "localized": false
+}

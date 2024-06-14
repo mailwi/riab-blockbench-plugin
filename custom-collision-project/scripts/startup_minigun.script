@@ -1,0 +1,18 @@
+load_map("map_minigun", coord[1, -3, 0], NORTH);
+
+animations_init();
+
+wait(3);
+
+for $minigun in group["minigun"] do
+	run_script("run_minigun", array[$minigun]);
+end;
+
+wait(0.1);
+
+for $healing_steam in group["healing_steam"] do
+	run_script("run_healing_steam", array[$healing_steam]);
+	wait(random(1, 10) / 10);
+end;
+
+

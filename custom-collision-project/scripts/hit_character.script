@@ -1,0 +1,6 @@
+if initiator != player then
+	if initiator.stat["hp"] > 0 then
+		damage_entity(initiator, random(1, 3));
+	end;
+end;
+

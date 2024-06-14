@@ -1,0 +1,666 @@
+{
+	"meta": {
+		"format_version": "4.10",
+		"model_format": "free",
+		"box_uv": false
+	},
+	"name": "healing_steam",
+	"model_identifier": "",
+	"visible_box": [1, 1, 0],
+	"variable_placeholders": "",
+	"variable_placeholder_buttons": [],
+	"timeline_setups": [],
+	"unhandled_root_fields": {},
+	"resolution": {
+		"width": 64,
+		"height": 64
+	},
+	"elements": [
+		{
+			"name": "cuboid",
+			"color": 0,
+			"origin": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"export": true,
+			"visibility": true,
+			"locked": false,
+			"render_order": "default",
+			"allow_mirror_modeling": true,
+			"vertices": {
+				"fOTY": [6, 8, 6],
+				"N1Sz": [6, 8, -6],
+				"uaOl": [8, 0, 8],
+				"a5hw": [8, 0, -8],
+				"bt2F": [-6, 8, 6],
+				"5U9R": [-6, 8, -6],
+				"nRjr": [-8, 0, 8],
+				"d6do": [-8, 0, -8],
+				"x43X": [3.24313, 8, -0.97329],
+				"Stdd": [1.48747, 8, -2.83268],
+				"FV0e": [-0.51381, 8, -3.39289],
+				"zqZm": [-3.0962, 8, -2.35743],
+				"2wdn": [-3.99865, 8, -0.33471],
+				"bXgV": [-3.89957, 8, 2.08645],
+				"bxRE": [-2.46137, 8, 3.79669],
+				"jeW5": [-0.2071, 8, 4.29087],
+				"gcNA": [2.15505, 8, 3.5185],
+				"YUTM": [3.469, 8, 1.59968],
+				"3f6k": [3.24313, 1, -0.97329],
+				"PTFJ": [1.48747, 1, -2.83268],
+				"0Ia8": [-0.51381, 1, -3.39289],
+				"aCai": [-3.0962, 1, -2.35743],
+				"2QPw": [-3.99865, 1, -0.33471],
+				"5n2X": [-3.89957, 1, 2.08645],
+				"dH1U": [-2.46137, 1, 3.79669],
+				"nyeV": [-0.2071, 1, 4.29087],
+				"UCP5": [2.15505, 1, 3.5185],
+				"w3kN": [3.469, 1, 1.59968]
+			},
+			"faces": {
+				"fymPNdeN": {
+					"uv": {
+						"fOTY": [18, 13],
+						"uaOl": [16, 21],
+						"N1Sz": [30, 13],
+						"a5hw": [32, 21]
+					},
+					"vertices": ["fOTY", "uaOl", "N1Sz", "a5hw"],
+					"texture": 0
+				},
+				"BojDWnzk": {
+					"uv": {
+						"bt2F": [30, 13],
+						"5U9R": [18, 13],
+						"nRjr": [32, 21],
+						"d6do": [16, 21]
+					},
+					"vertices": ["bt2F", "5U9R", "nRjr", "d6do"],
+					"texture": 0
+				},
+				"SyJQQHtt": {
+					"uv": {
+						"uaOl": [16, 0],
+						"nRjr": [0, 0],
+						"a5hw": [16, 16],
+						"d6do": [0, 16]
+					},
+					"vertices": ["uaOl", "nRjr", "a5hw", "d6do"],
+					"texture": 0
+				},
+				"qcICclG3": {
+					"uv": {
+						"fOTY": [30, 13],
+						"bt2F": [18, 13],
+						"uaOl": [32, 21],
+						"nRjr": [16, 21]
+					},
+					"vertices": ["fOTY", "bt2F", "uaOl", "nRjr"],
+					"texture": 0
+				},
+				"ZWbgUvOQ": {
+					"uv": {
+						"N1Sz": [18, 13],
+						"a5hw": [16, 21],
+						"5U9R": [30, 13],
+						"d6do": [32, 21]
+					},
+					"vertices": ["N1Sz", "a5hw", "5U9R", "d6do"],
+					"texture": 0
+				},
+				"3dvXpya6": {
+					"uv": {
+						"bt2F": [0.4998, 29],
+						"fOTY": [12.4998, 29],
+						"jeW5": [6.2927, 27.2909],
+						"bxRE": [4.0384, 26.7967]
+					},
+					"vertices": ["bt2F", "fOTY", "jeW5", "bxRE"],
+					"texture": 0
+				},
+				"N8tZZraI": {
+					"uv": {
+						"fOTY": [12.49974, 29.00035],
+						"N1Sz": [12.5002, 17.00035],
+						"x43X": [9.74311, 22.02694]
+					},
+					"vertices": ["fOTY", "N1Sz", "x43X", "x43X"],
+					"texture": 0
+				},
+				"V52B5BKD": {
+					"uv": {
+						"N1Sz": [12.50018, 17.00038],
+						"5U9R": [0.50018, 17],
+						"FV0e": [5.9863, 19.60727],
+						"Stdd": [7.98758, 20.16754]
+					},
+					"vertices": ["N1Sz", "5U9R", "FV0e", "Stdd"],
+					"texture": 0
+				},
+				"QWUmkp3C": {
+					"uv": {
+						"5U9R": [0.50018, 17],
+						"bt2F": [0.4998, 29],
+						"2wdn": [2.5013, 22.66536],
+						"bXgV": [2.60033, 25.08647]
+					},
+					"vertices": ["5U9R", "bt2F", "2wdn", "bXgV"],
+					"texture": 0
+				},
+				"DOz4K8y2": {
+					"uv": {
+						"3f6k": [24.508, 2.41962],
+						"PTFJ": [22.75243, 0.56025],
+						"0Ia8": [20.75109, 0.00003],
+						"w3kN": [24.73383, 4.99262]
+					},
+					"vertices": ["3f6k", "PTFJ", "0Ia8", "w3kN"],
+					"texture": 0
+				},
+				"iIengydA": {
+					"uv": {
+						"Stdd": [7.98758, 20.16754],
+						"x43X": [9.74311, 22.02694],
+						"N1Sz": [12.50018, 17.00038]
+					},
+					"vertices": ["Stdd", "x43X", "N1Sz"],
+					"texture": 0
+				},
+				"kLdTDGOc": {
+					"uv": {
+						"0Ia8": [20.75107, 0],
+						"aCai": [18.16867, 1.0355],
+						"2QPw": [17.26617, 3.0582],
+						"5n2X": [17.36527, 5.4793]
+					},
+					"vertices": ["0Ia8", "aCai", "2QPw", "5n2X"],
+					"texture": 0
+				},
+				"K1zA426w": {
+					"uv": {
+						"zqZm": [3.40387, 20.64269],
+						"FV0e": [5.9863, 19.60727],
+						"5U9R": [0.50018, 17]
+					},
+					"vertices": ["zqZm", "FV0e", "5U9R"],
+					"texture": 0
+				},
+				"8HH4N14O": {
+					"uv": {
+						"2wdn": [2.5013, 22.66536],
+						"zqZm": [3.40387, 20.64269],
+						"5U9R": [0.50018, 17]
+					},
+					"vertices": ["2wdn", "zqZm", "5U9R"],
+					"texture": 0
+				},
+				"am8lY2ty": {
+					"uv": {
+						"5n2X": [17.36533, 5.47932],
+						"dH1U": [18.80342, 7.18955],
+						"nyeV": [21.05771, 7.68379]
+					},
+					"vertices": ["5n2X", "dH1U", "nyeV"],
+					"texture": 0
+				},
+				"ELSwzewS": {
+					"uv": {
+						"bxRE": [4.03844, 26.79668],
+						"bXgV": [2.60033, 25.08647],
+						"bt2F": [0.4998, 29]
+					},
+					"vertices": ["bxRE", "bXgV", "bt2F"],
+					"texture": 0
+				},
+				"L9YWazyn": {
+					"uv": {
+						"nyeV": [21.05771, 7.68379],
+						"UCP5": [23.41982, 6.91141],
+						"w3kN": [24.73383, 4.99262],
+						"5n2X": [17.36523, 5.47925]
+					},
+					"vertices": ["nyeV", "UCP5", "w3kN", "5n2X"],
+					"texture": 0
+				},
+				"J9xo65Vl": {
+					"uv": {
+						"gcNA": [8.6548, 26.5185],
+						"jeW5": [6.2927, 27.2909],
+						"fOTY": [12.4998, 29]
+					},
+					"vertices": ["gcNA", "jeW5", "fOTY"],
+					"texture": 0
+				},
+				"nZPdvkdD": {
+					"uv": {
+						"YUTM": [9.9688, 24.5997],
+						"gcNA": [8.6548, 26.5185],
+						"fOTY": [12.4998, 29]
+					},
+					"vertices": ["YUTM", "gcNA", "fOTY"],
+					"texture": 0
+				},
+				"QSzzcfHq": {
+					"uv": {
+						"x43X": [9.74285, 22.02673],
+						"YUTM": [9.9688, 24.5997],
+						"fOTY": [12.49981, 29.00002]
+					},
+					"vertices": ["x43X", "YUTM", "fOTY"],
+					"texture": 0
+				},
+				"jwlvmsXb": {
+					"uv": {
+						"w3kN": [24.73383, 4.99262],
+						"0Ia8": [20.75107, 0],
+						"5n2X": [17.3653, 5.47925]
+					},
+					"vertices": ["w3kN", "0Ia8", "5n2X"],
+					"texture": 0
+				},
+				"64g6uxAY": {
+					"uv": {
+						"PTFJ": [28.0782, 7],
+						"3f6k": [30.6354, 7],
+						"x43X": [30.6354, 0],
+						"Stdd": [28.0782, 0]
+					},
+					"vertices": ["PTFJ", "3f6k", "x43X", "Stdd"],
+					"texture": 0
+				},
+				"5vPFMVUp": {
+					"uv": {
+						"0Ia8": [26, 7],
+						"PTFJ": [28.0782, 7],
+						"Stdd": [28.0782, 0],
+						"FV0e": [26, 0]
+					},
+					"vertices": ["0Ia8", "PTFJ", "Stdd", "FV0e"],
+					"texture": 0
+				},
+				"ivYn1zAL": {
+					"uv": {
+						"3f6k": [26, 29],
+						"w3kN": [29, 29],
+						"YUTM": [29, 22],
+						"x43X": [26, 22]
+					},
+					"vertices": ["3f6k", "w3kN", "YUTM", "x43X"],
+					"texture": 0
+				},
+				"iQRLUJyd": {
+					"uv": {
+						"aCai": [0, 37],
+						"0Ia8": [3, 37],
+						"FV0e": [3, 30],
+						"zqZm": [0, 30]
+					},
+					"vertices": ["aCai", "0Ia8", "FV0e", "zqZm"],
+					"texture": 0
+				},
+				"ufEnJMxU": {
+					"uv": {
+						"2QPw": [22.6041, 29],
+						"aCai": [24.819, 29],
+						"zqZm": [24.819, 22],
+						"2wdn": [22.6041, 22]
+					},
+					"vertices": ["2QPw", "aCai", "zqZm", "2wdn"],
+					"texture": 0
+				},
+				"vYUCnK5N": {
+					"uv": {
+						"5n2X": [20.181, 29],
+						"2QPw": [22.6041, 29],
+						"2wdn": [22.6041, 22],
+						"bXgV": [20.181, 22]
+					},
+					"vertices": ["5n2X", "2QPw", "2wdn", "bXgV"],
+					"texture": 0
+				},
+				"HvFmLWwJ": {
+					"uv": {
+						"dH1U": [30, 29],
+						"5n2X": [32, 29],
+						"bXgV": [32, 22],
+						"bxRE": [30, 22]
+					},
+					"vertices": ["dH1U", "5n2X", "bXgV", "bxRE"],
+					"texture": 0
+				},
+				"QDjrfzeK": {
+					"uv": {
+						"nyeV": [16.4852, 29],
+						"dH1U": [18.793, 29],
+						"bxRE": [18.793, 22],
+						"jeW5": [16.4852, 22]
+					},
+					"vertices": ["nyeV", "dH1U", "bxRE", "jeW5"],
+					"texture": 0
+				},
+				"9P2L7BaD": {
+					"uv": {
+						"UCP5": [14, 29],
+						"nyeV": [16.4852, 29],
+						"jeW5": [16.4852, 22],
+						"gcNA": [14, 22]
+					},
+					"vertices": ["UCP5", "nyeV", "jeW5", "gcNA"],
+					"texture": 0
+				},
+				"5xWTxA13": {
+					"uv": {
+						"w3kN": [20, 37],
+						"UCP5": [22, 37],
+						"gcNA": [22, 30],
+						"YUTM": [20, 30]
+					},
+					"vertices": ["w3kN", "UCP5", "gcNA", "YUTM"],
+					"texture": 0
+				},
+				"A6pclyCm": {
+					"uv": {
+						"3f6k": [4, 37],
+						"PTFJ": [7, 37],
+						"x43X": [4, 30],
+						"Stdd": [7, 30]
+					},
+					"vertices": ["3f6k", "PTFJ", "x43X", "Stdd"],
+					"texture": 0
+				},
+				"0eNS5Ks3": {
+					"uv": {
+						"PTFJ": [8, 37],
+						"0Ia8": [10, 37],
+						"Stdd": [8, 30],
+						"FV0e": [10, 30]
+					},
+					"vertices": ["PTFJ", "0Ia8", "Stdd", "FV0e"],
+					"texture": 0
+				},
+				"CbUFRnuY": {
+					"uv": {
+						"0Ia8": [0, 37],
+						"aCai": [3, 37],
+						"FV0e": [0, 30],
+						"zqZm": [3, 30]
+					},
+					"vertices": ["0Ia8", "aCai", "FV0e", "zqZm"],
+					"texture": 0
+				},
+				"Y3tVAo8d": {
+					"uv": {
+						"aCai": [14, 37],
+						"2QPw": [16, 37],
+						"zqZm": [14, 30],
+						"2wdn": [16, 30]
+					},
+					"vertices": ["aCai", "2QPw", "zqZm", "2wdn"],
+					"texture": 0
+				},
+				"XgYKriNT": {
+					"uv": {
+						"5n2X": [20.181, 29],
+						"2QPw": [22.6041, 29],
+						"bXgV": [20.181, 22],
+						"2wdn": [22.6041, 22]
+					},
+					"vertices": ["5n2X", "2QPw", "bXgV", "2wdn"],
+					"texture": 0
+				},
+				"nl9ugfaU": {
+					"uv": {
+						"5n2X": [30, 29],
+						"dH1U": [32, 29],
+						"bXgV": [30, 22],
+						"bxRE": [32, 22]
+					},
+					"vertices": ["5n2X", "dH1U", "bXgV", "bxRE"],
+					"texture": 0
+				},
+				"BrTyKPcj": {
+					"uv": {
+						"dH1U": [16.4852, 29],
+						"nyeV": [18.793, 29],
+						"bxRE": [16.4852, 22],
+						"jeW5": [18.793, 22]
+					},
+					"vertices": ["dH1U", "nyeV", "bxRE", "jeW5"],
+					"texture": 0
+				},
+				"fESgGszo": {
+					"uv": {
+						"nyeV": [17, 37],
+						"UCP5": [19, 37],
+						"jeW5": [17, 30],
+						"gcNA": [19, 30]
+					},
+					"vertices": ["nyeV", "UCP5", "jeW5", "gcNA"],
+					"texture": 0
+				},
+				"k8SQSOm0": {
+					"uv": {
+						"UCP5": [20, 37],
+						"w3kN": [22, 37],
+						"gcNA": [20, 30],
+						"YUTM": [22, 30]
+					},
+					"vertices": ["UCP5", "w3kN", "gcNA", "YUTM"],
+					"texture": 0
+				},
+				"CAE1DXgA": {
+					"uv": {
+						"w3kN": [26, 29],
+						"3f6k": [29, 29],
+						"YUTM": [26, 22],
+						"x43X": [29, 22]
+					},
+					"vertices": ["w3kN", "3f6k", "YUTM", "x43X"],
+					"texture": 0
+				}
+			},
+			"type": "mesh",
+			"uuid": "f89df9e2-f017-e634-a131-980131644944"
+		},
+		{
+			"name": "collision1",
+			"color": 0,
+			"origin": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"export": true,
+			"visibility": true,
+			"locked": false,
+			"render_order": "default",
+			"allow_mirror_modeling": true,
+			"vertices": {
+				"sQfH": [8, 16, 8],
+				"Pp2z": [8, 16, -8],
+				"mQCK": [8, 0, 8],
+				"YNWW": [8, 0, -8],
+				"G68I": [-8, 16, 8],
+				"xeZZ": [-8, 16, -8],
+				"uE3K": [-8, 0, 8],
+				"EjQ0": [-8, 0, -8]
+			},
+			"faces": {
+				"YoSJ1hW8": {
+					"uv": {
+						"sQfH": [0, 0],
+						"mQCK": [0, 16],
+						"Pp2z": [16, 0],
+						"YNWW": [16, 16]
+					},
+					"vertices": ["sQfH", "mQCK", "Pp2z", "YNWW"]
+				},
+				"WaUtcged": {
+					"uv": {
+						"G68I": [16, 0],
+						"xeZZ": [0, 0],
+						"uE3K": [16, 16],
+						"EjQ0": [0, 16]
+					},
+					"vertices": ["G68I", "xeZZ", "uE3K", "EjQ0"]
+				},
+				"tFrokh1E": {
+					"uv": {
+						"sQfH": [16, 16],
+						"Pp2z": [16, 0],
+						"G68I": [0, 16],
+						"xeZZ": [0, 0]
+					},
+					"vertices": ["sQfH", "Pp2z", "G68I", "xeZZ"]
+				},
+				"3JP8i9jV": {
+					"uv": {
+						"mQCK": [16, 0],
+						"uE3K": [0, 0],
+						"YNWW": [16, 16],
+						"EjQ0": [0, 16]
+					},
+					"vertices": ["mQCK", "uE3K", "YNWW", "EjQ0"]
+				},
+				"RIdZlLad": {
+					"uv": {
+						"sQfH": [16, 0],
+						"G68I": [0, 0],
+						"mQCK": [16, 16],
+						"uE3K": [0, 16]
+					},
+					"vertices": ["sQfH", "G68I", "mQCK", "uE3K"]
+				},
+				"9LlLBdI5": {
+					"uv": {
+						"Pp2z": [0, 0],
+						"YNWW": [0, 16],
+						"xeZZ": [16, 0],
+						"EjQ0": [16, 16]
+					},
+					"vertices": ["Pp2z", "YNWW", "xeZZ", "EjQ0"]
+				}
+			},
+			"type": "mesh",
+			"uuid": "a4f01736-5a81-0a93-d205-224092818bfe"
+		}
+	],
+	"outliner": [
+		{
+			"name": "root",
+			"origin": [0, 0, 0],
+			"color": 0,
+			"uuid": "c85a57ed-97e3-4176-9d97-340dcc0d7494",
+			"export": true,
+			"mirror_uv": false,
+			"isOpen": true,
+			"locked": false,
+			"visibility": true,
+			"autouv": 0,
+			"children": ["f89df9e2-f017-e634-a131-980131644944"]
+		},
+		{
+			"name": "collisions",
+			"origin": [0, 0, 0],
+			"color": 0,
+			"uuid": "b80168ba-0ad4-a226-3e28-18f4cf7f5acd",
+			"export": true,
+			"mirror_uv": false,
+			"isOpen": true,
+			"locked": false,
+			"visibility": true,
+			"autouv": 0,
+			"children": [
+				{
+					"name": "collision1",
+					"origin": [0, 0, 0],
+					"color": 0,
+					"uuid": "9a482361-4fba-6e74-9205-999c3aa633ee",
+					"export": true,
+					"mirror_uv": false,
+					"isOpen": true,
+					"locked": false,
+					"visibility": true,
+					"autouv": 0,
+					"children": ["a4f01736-5a81-0a93-d205-224092818bfe"]
+				}
+			]
+		}
+	],
+	"textures": [
+		{
+			"path": "",
+			"name": "texture",
+			"folder": "block",
+			"namespace": "",
+			"id": "1",
+			"width": 64,
+			"height": 64,
+			"uv_width": 64,
+			"uv_height": 64,
+			"particle": false,
+			"use_as_default": false,
+			"layers_enabled": false,
+			"sync_to_project": "",
+			"render_mode": "default",
+			"render_sides": "auto",
+			"frame_time": 1,
+			"frame_order_type": "loop",
+			"frame_order": "",
+			"frame_interpolate": false,
+			"visible": true,
+			"internal": true,
+			"saved": false,
+			"uuid": "beeea410-65f3-f26a-9a88-eba273b340e2",
+			"source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAA6FJREFUeF7tWrFuE0EQ3SW2ZcsxMYkc4ojEEUKKxA9AQZGCFJSREOIL+AJ+AomCDgkJ0aZAokxBARIFaShoXCEUIwQkVuw4tuVATA7NhjnNrfec8/ri3NlzjePd292ZtzPv7Wwsy5sbzn67LuBpNefVZ2nhWH3CU/mV7Gkztd98+MYdQ/8ob26or6Z+7DMOHFGj3Hr2wJnO7Ynl6/dEe3dbLZu9etuzPLZDI4KFL8xlrxid00GILAAQAXRHAQzqHIABAFDHwWn6+O0+vgM7HVkAPrxcc6hD1FGaEtAO79HowMiINQCUA+jOm1IQ+YD2AV/EHgBwDInPtMM6L1BO8CO42HIAVQDKDegQ7ce0iHUEAAeAczqx6c7TCPn2dUupBjxn8UAUpK6foioZ1HeVDkBg+qnAiCT7XJaRugwCGLrW+0XIuVg04kmlKQVQ+9EWSozlz588JuqcMWL7h16uBwBTqEObnvNDrxyRCWTl3RNFgkho4KypJoB+BIcemyPih7UZigRhtB7KQc4DoAZAkrbFVBTSR5EgHIT0GkA/9ZmMxQMUpsigxZRJeq230nKgK4O07NV5gPb5AYPtNsWUpe2hDHNlMJTZtHI5aDEV1to288iPr+463ZOuGgsGY6ibLkKgLT9TEzOZnGct0x2ByRi/YsrG8LDGuAAgs1Pya+1uCwm72qoJIeEvIRKXEj0ADFtMheWMzTwKALqjlNGXF45FrV0X6fSsmF+8peb/sfO2BwBoP+vqDI0zFVM2hoc1xpMCMCllZtBH2HfqXKPT9ACAgA1bTIXl0KDzuBEATq6ult4fNb6s0UkgJf7+ORRH9bJq1gEYdMGove9GQD9NnkpdFnv1iooOBMDvji9IO70jvOhyWQFw0JjtOQnSnao29x8XcnNPaQQEcRTn0C9FIwcAyqBfFOz8TLxeKXbvTwAA+bYQMtsvT8cyBRZX1pXPcJavNpsvCrncI/juCOe5lPLG4e/uenHpjuofSwDgHIAFUSaZEYWlUyHA4iY1XRLJbNFzDhgrDkAS/F6V4lrBUWBkMgei08mLbPpEpJKOqDenFAB4FB4rAPSzfRAOiJqe29oDBz33Rsh2EtO4i9b3oL4wABwBnALMAUyCQRlzkPdiowL4v8FBnBund0O/FY4bOAwAp8D/n8nFLXTDspdTgFOAU+D0p7KT+jAHMAcwBzAHMAlOqgKA36wCrAKsAqwCrAKsAhOMAMsgyyDLIMvgRMvgP3GPqt94G6XrAAAAAElFTkSuQmCC"
+		}
+	],
+	"animations": [
+		{
+			"uuid": "9a02bddb-210c-baa8-c209-2b79eed2fe22",
+			"name": "steam",
+			"loop": "hold",
+			"override": false,
+			"length": 5.04167,
+			"snapping": 24,
+			"selected": true,
+			"anim_time_update": "",
+			"blend_weight": "",
+			"start_delay": "",
+			"loop_delay": "",
+			"animators": {
+				"9a482361-4fba-6e74-9205-999c3aa633ee": {
+					"name": "collision1",
+					"type": "bone",
+					"keyframes": [
+						{
+							"channel": "position",
+							"data_points": [
+								{
+									"x": "0",
+									"y": 8,
+									"z": "0"
+								}
+							],
+							"uuid": "0585f9e0-c8dc-641b-30eb-340cbbfab41c",
+							"time": 2.5,
+							"color": -1,
+							"interpolation": "linear"
+						},
+						{
+							"channel": "scale",
+							"data_points": [
+								{
+									"x": 0.5,
+									"y": 0.9,
+									"z": 0.5
+								}
+							],
+							"uuid": "e103b575-da27-6305-9766-6b3b7a9a6874",
+							"time": 2.5,
+							"color": -1,
+							"uniform": false,
+							"interpolation": "linear"
+						}
+					]
+				}
+			}
+		}
+	]
+}

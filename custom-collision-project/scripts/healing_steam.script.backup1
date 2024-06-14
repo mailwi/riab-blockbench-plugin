@@ -1,0 +1,6 @@
+$e = self.property["collision_entity"];
+attach_effect("steam", $e, "steam");
+wait(2.5);
+detach_effect($e, "steam");
+
+

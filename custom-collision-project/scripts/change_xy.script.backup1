@@ -1,0 +1,13 @@
+$rotation = player.rotation;
+
+if $rotation[2] > 44 and $rotation[2] < 136 then
+	global.property["x"] += 1;
+elseif $rotation[2] >= 225 and $rotation[2] <= 315 then
+	global.property["x"] -= 1;
+elseif $rotation[2] > 135 and $rotation[2] < 225 then
+	global.property["y"] -= 1;
+else
+	global.property["y"] += 1;
+end;
+
+

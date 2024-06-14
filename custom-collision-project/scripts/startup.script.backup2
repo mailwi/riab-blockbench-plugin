@@ -1,0 +1,62 @@
+load_map("map", coord[0, 9, 0], NORTH);
+
+play_animation(entity["enemy"].attachment["point"], "idle");
+
+wait(3);
+
+$enemy_position = entity["enemy"].position;
+
+while true do
+	for $i in range(0, 5) do
+		if entity["enemy"] != null then
+			show_animation_light(entity["enemy"].attachment["point"], "attack1", $enemy_position, null, 0, "hit_player", null);
+		else
+			break;
+		end;
+	end;
+	
+	for $i in range(0, 9) do
+		if entity["enemy"] != null then
+			set_entity_rotation(entity["enemy"], 0, 0, $i * 40, 0.00001);
+			play_animation(entity["enemy"].attachment["point"], "idle");
+			
+			wait(0.00001);
+			
+			show_animation_light(entity["enemy"].attachment["point"], "attack2", $enemy_position, null, $i * 40, "hit_player", null);
+		else
+			break;
+		end;
+	end;
+	
+	if entity["enemy"] != null then
+		play_animation(entity["enemy"].attachment["point"], "idle");
+		wait(0.00001);
+		set_entity_rotation(entity["enemy"], 0, 0, 0, 0.00001);
+	else
+		break;
+	end;
+		
+	wait(1);
+	
+	for $i in range(0, 24) do
+		if entity["enemy"] != null then
+			set_entity_rotation(entity["enemy"], 0, 0, 359 - $i * 15, 0.00001);
+		
+			show_animation_light(entity["enemy"].attachment["point"], "attack3", $enemy_position, null, 359 - $i * 15, "hit_player", null);
+		else
+			break;
+		end;
+	end;
+	
+	if entity["enemy"] != null then
+		play_animation(entity["enemy"].attachment["point"], "idle");
+		wait(0.00001);
+		set_entity_rotation(entity["enemy"], 0, 0, 0, 0.00001);
+	else
+		break;
+	end;
+	
+	wait(1);
+end;
+
+

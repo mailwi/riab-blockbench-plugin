@@ -173,6 +173,8 @@
 		random_rotate = false
 	}
 	
+	let exportButton
+	
 	Plugin.register('split_the_animated_texture_plugin', {
 		title: 'Split the animated texture',
 		author: 'Wantear',

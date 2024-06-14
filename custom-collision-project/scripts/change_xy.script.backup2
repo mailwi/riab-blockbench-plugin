@@ -1,0 +1,13 @@
+$rotation = player.rotation;
+
+if $rotation[2] > 44 and $rotation[2] < 136 then
+	$t = tile[$player_coord.x + 1, $player_coord.y, 0];
+elseif $rotation[2] >= 225 and $rotation[2] <= 315 then
+	$t = tile[$player_coord.x - 1, $player_coord.y, 0];
+elseif $rotation[2] > 135 and $rotation[2] < 225 then
+	$t = tile[$player_coord.x, $player_coord.y - 1, 0];
+else
+	$t = tile[$player_coord.x, $player_coord.y + 1, 0];
+end;
+
+

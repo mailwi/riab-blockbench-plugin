@@ -1,0 +1,18 @@
+if $target != null then
+	if $target != null then
+		if $target.type == CHARACTER then
+			if $target.stat["hp"] > 0 then
+				damage_entity($target, random(1, 3));
+			end;
+		end;
+	else
+		remove_entity($projectile);
+	end;
+else
+	remove_entity($projectile);
+end;
+
+
+
+
+

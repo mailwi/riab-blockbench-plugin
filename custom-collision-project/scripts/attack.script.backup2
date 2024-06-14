@@ -1,0 +1,19 @@
+if global.property["attack"] != true then
+	global.property["attack"] = true;
+
+	override_animation(player, "idle", "skip_idle");
+	override_animation(player, "walk", "skip_walk");
+	set_movement_speed(player, 0);
+	
+	print(player.position);
+	
+	show_animation(player, "attack", player.coord, 0.5, player.rotation_z, "hit_character", null, null, null);
+	
+	set_movement_speed(player, 240);
+	override_animation(player, "walk", "walk");
+	override_animation(player, "idle", "idle");
+	play_animation(player, "idle");
+	
+	global.property["attack"] = false;
+end;
+

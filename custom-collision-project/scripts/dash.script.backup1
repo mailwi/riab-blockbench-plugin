@@ -1,0 +1,37 @@
+if global.property["dash"] != true and global.property["attack"] != true then
+	global.property["dash"] = true;
+	
+	$dash = data["dash.json"];
+	
+	$rotation_z = player.rotation_z;
+	
+	$xy = $dash[$rotation_z];
+	
+	print("rotation: " + str($rotation_z));
+	
+	$t = tile[player.coord.x + $xy[0] / 6 * 16, player.coord.y + $xy[1] / 6 * 16, 0];
+	
+	if $t != null then
+		override_animation(player, "idle", "skip_idle");
+		override_animation(player, "walk", "skip_walk");
+		set_movement_speed(player, 0);
+	
+		play_animation(player, "dash");
+		
+		for $i in range(0, 12) do
+			set_entity_rotation(player, 0, 0, $rotation_z, 0.01);
+			wait(0.01);
+		end;
+	
+		set_movement_speed(player, 120);
+		override_animation(player, "walk", "walk");
+		override_animation(player, "idle", "idle");
+		play_animation(player, "idle");
+		
+		wait(0.00001);
+		
+		put_entity(player, $t);
+	end;
+	
+	global.property["dash"] = false;
+end;

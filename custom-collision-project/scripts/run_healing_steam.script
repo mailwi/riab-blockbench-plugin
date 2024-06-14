@@ -1,0 +1,13 @@
+$args = self.property["args"];
+
+$e = $args[0];
+
+$steam_coord = $e.position;
+$steam_coord.z = $steam_coord.z - 6.25;
+
+while true do
+	show_animation($e, "steam", $steam_coord, null, 0, "heal_player", "healing_steam", null);
+	wait(0.1);
+end;
+
+free_script(self);

@@ -1,0 +1,7 @@
+if global.property["showed_platforms"] != true then
+	global.property["showed_platforms"] = true;
+	show_animation_only_collide(entity["platforms"].attachment["point"], "make_path", entity["platforms"].position, null, 0, 0);
+else
+	global.property["showed_platforms"] = false;
+	show_animation_only_collide(entity["platforms"].attachment["point"], "remove_path", entity["platforms"].position, null, 0, 0);
+end;

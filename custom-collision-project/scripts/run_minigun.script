@@ -1,0 +1,26 @@
+$args = self.property["args"];
+
+$e = $args[0];
+
+while true do
+	$enemies_exist = false;
+	
+	for $enemy in group["enemies"] do
+		$enemies_exist = true;
+		break;
+	end;
+	
+	if $enemies_exist == false then
+		break;
+	end;
+	
+	show_animation($e.attachment["point"], "shoot", $e.position, null, 0, null, "fire_projectile", null);
+	
+	wait(0.1);
+end;
+
+play_animation($e.attachment["point"], "default");
+
+free_script(self);
+
+

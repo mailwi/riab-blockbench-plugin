@@ -1,0 +1,4 @@
+$c = self.property["collision_coord"];
+
+fire_projectile("ITEM_0001", $c, coord[$c.x, $c.y + 1, $c.z]);
+
