@@ -54,12 +54,92 @@
 				
 				let copied_bone = { ...bone }
 				
+				copied_bone.rotation = [0, 0, 0]
+				
 				copied_bone['name'] += 'XY'
 				copied_bone['uuid'] += 'XY'
 				
 				bone['children'] = [copied_bone]
 				
 				duplicate_bones(children, bones_uuid, bones_uuid_names)
+			}
+		}
+	}
+	
+	function transfer_origin(mesh, origin) {
+		let q = new THREE.Quaternion() // .copy(mesh.quaternion)
+		
+		let shift = new THREE.Vector3(
+			mesh.origin[0] - origin[0],
+			mesh.origin[1] - origin[1],
+			mesh.origin[2] - origin[2]
+		)
+		
+		shift.applyQuaternion(q.invert())
+		shift = shift.toArray()
+		
+		for (let vkey in mesh.vertices) {
+			mesh.vertices[vkey].V3_add(shift)
+		}
+		
+		mesh.origin.V3_set(origin)
+	}
+	
+	function apply_mesh_rotation(mesh) {
+		let vec = new THREE.Vector3()
+
+		let rotation = new THREE.Euler(Math.degToRad(mesh.rotation[0]), Math.degToRad(mesh.rotation[1]), Math.degToRad(mesh.rotation[2]))
+		
+		for (let vkey in mesh.vertices) {
+			vec.fromArray(mesh.vertices[vkey])
+			vec.applyEuler(rotation)
+			mesh.vertices[vkey].V3_set(vec.x, vec.y, vec.z)
+		}
+		
+		mesh.rotation.V3_set(0, 0, 0)
+	}
+	
+	function get_parent(meshes, children) {
+		for (let bone of children) {
+			if (typeof bone === 'object' && !Array.isArray(bone) && bone !== null) {
+				if (len(bone['children']) > 0 && typeof bone['children'][0] === 'string') {
+					for (let mesh_uuid of bone['children']) {
+						let mesh = meshes[mesh_uuid][0]
+						
+						meshes[mesh_uuid][1].vertices = mesh.vertices
+					}
+				} else {
+					get_parent(meshes, bone['children'])
+				}
+			}
+		}
+	}
+	
+	function get_bones(bones, children, rotation, origin) {
+		if (!rotation) {
+			rotation = []
+			origin = []
+		}
+		
+		for (let bone of children) {
+			if (typeof bone === 'object' && !Array.isArray(bone) && bone !== null) {
+				let bone_rotation
+				
+				if (bone.rotation) {
+					bone_rotation = [bone.rotation[0], bone.rotation[1], bone.rotation[2]]
+				} else {
+					bone_rotation = [0, 0, 0]
+				}
+				
+				bone.rotation = [0, 0, 0]
+				
+				let bone_origin = [bone.origin[0], bone.origin[1], bone.origin[2]]
+				
+				// console.log(bone.name, JSON.stringify([...rotation, bone_rotation]), JSON.stringify([...origin, bone_origin]))
+				
+				bones[bone.uuid] = [bone, [...rotation, bone_rotation], [...origin, bone_origin]]
+				
+				get_bones(bones, bone['children'], [...rotation, bone_rotation], [...origin, bone_origin])
 			}
 		}
 	}
@@ -71,6 +151,59 @@
 			let elements = data['elements']
 			let outliner = data['outliner']
 			let animations = data['animations'] ? data['animations'] : null
+			
+			let meshes = {}
+			let bones = {}
+			
+			get_bones(bones, outliner)
+			
+			// console.log(bones)
+			
+			for (let m of Mesh.all) {
+				let mesh = new Mesh({
+					name: m.name,
+					color: m.color,
+					visibility: m.visibility,
+					rotation: m.rotation,
+					origin: m.origin,
+					vertices: m.vertices
+				})
+				
+				// mesh.quaternion = m.mesh.quaternion
+				mesh.parent = m.parent
+				
+				apply_mesh_rotation(mesh)
+				
+				let parent = mesh.parent
+					
+				let bone = bones[parent.uuid][0]
+				let bone_rotation = bones[parent.uuid][1]
+				let bone_origin = bones[parent.uuid][2]
+				
+				for (let i = bone_rotation.length - 1; i >= 0; i--) {
+					transfer_origin(mesh, bone_origin[i])
+					
+					mesh.rotation = [...bone_rotation[i]]
+					
+					apply_mesh_rotation(mesh)
+				}
+				
+				meshes[m.uuid] = mesh
+			}
+			
+			for (let element of elements) {
+				let mesh = meshes[element.uuid]
+				
+				element.vertices = mesh.vertices
+				element.rotation = mesh.rotation
+				element.origin = mesh.origin
+				
+				// let parent = bones[mesh.parent.uuid]
+				
+				// meshes[element.uuid] = [mesh, element]
+			}
+			
+			// get_parent(meshes, outliner)
 			
 			let i = 0
 			let elements_length = elements.length
@@ -171,6 +304,8 @@
 			bones_origin[outliner[0]['name']] = outliner[0]['origin']
 			get_bones_origin(outliner[0]['children'], [0, 0, 0], bones_origin)
 			duplicate_bones(outliner, bones_uuid, bones_uuid_names)
+			
+			console.log(bones_origin)
 			
 			if (animations !== null) {
 				for (let animation of animations) {
