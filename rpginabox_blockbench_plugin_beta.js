@@ -144,6 +144,53 @@
 		}
 	}
 	
+	function bake_ik_animation(animation, converted_animation) {
+		let ik_samples = animation.sampleIK(animation.snapping)
+		
+		for (let uuid in ik_samples) {
+			let animator = animation.animators[uuid];
+			ik_samples[uuid].forEach(({array}) => {
+				array[0] = Math.roundTo(array[0], 4);
+				array[1] = Math.roundTo(array[1], 4);
+				array[2] = Math.roundTo(array[2], 4);
+			})
+			ik_samples[uuid].forEach(({array}, i) => {
+				let before = ik_samples[uuid][i-1];
+				let after = ik_samples[uuid][i+1];
+				if ((!before || before.array.equals(array)) && (!after || after.array.equals(array))) return;
+
+				let time = Timeline.snapTime(i / animation.snapping, animation);
+				let values = {x: array[0], y: array[1], z: array[2]};
+				
+				if (!(uuid in converted_animation.animators)) {
+					converted_animation.animators[uuid] = {
+						'name': animator.name,
+						'type': 'bone',
+						'keyframes': []
+					}
+				}
+				
+				let keyframes = converted_animation.animators[uuid]['keyframes']
+				
+				keyframes.push({
+					"channel": "rotation",
+					"data_points": [
+						values
+					],
+					"uuid": guid(),
+					"time": time,
+					"color": -1,
+					"interpolation": "linear",
+					"bezier_linked": true,
+					"bezier_left_time": [-0.1, -0.1, -0.1],
+					"bezier_left_value": [0, 0, 0],
+					"bezier_right_time": [0.1, 0.1, 0.1],
+					"bezier_right_value": [0, 0, 0]
+				})
+			})
+		}
+	}
+	
 	function convert(ignore_elements = false) {
 		Blockbench.readFile(Project.save_path, {}, (files) => {						
 			let data = JSON.parse(files[0].content)
@@ -191,12 +238,18 @@
 				meshes[m.uuid] = mesh
 			}
 			
+			let elements_to_delete = []
+			
 			for (let element of elements) {
 				let mesh = meshes[element.uuid]
 				
-				element.vertices = mesh.vertices
-				element.rotation = mesh.rotation
-				element.origin = mesh.origin
+				if (mesh) {
+					element.vertices = mesh.vertices
+					element.rotation = mesh.rotation
+					element.origin = mesh.origin
+				} else {
+					elements_to_delete.push(element)
+				}
 				
 				// let parent = bones[mesh.parent.uuid]
 				
@@ -208,7 +261,7 @@
 			let i = 0
 			let elements_length = elements.length
 			while (i < elements_length) {
-				if (elements[i].name.indexOf('collision') > -1) {
+				if (elements[i].name.indexOf('collision') > -1 || elements_to_delete.includes(elements[i])) {
 					// console.log(elements[i].name)
 					elements.splice(i, 1)
 					elements_length = elements.length
@@ -245,6 +298,31 @@
 							delete animators[animator_uuid]
 						}
 					}
+				}
+				
+				let i = 0
+				for (let animation of Animation.all) {
+					let animators = animation['animators']
+					
+					let animators_keys = Object.keys(animators)
+					
+					let animation_baked = false
+					
+					for (let animator_uuid of animators_keys) {
+						let animator = animators[animator_uuid]
+						
+						if (animator.type === 'null_object') {
+							if (!animation_baked) {
+								bake_ik_animation(animation, animations[i])
+								
+								animation_baked = true
+							}
+							
+							delete animations[i]['animators'][animator_uuid]
+						}
+					}
+					
+					i += 1
 				}
 			}
 			
@@ -305,7 +383,7 @@
 			get_bones_origin(outliner[0]['children'], [0, 0, 0], bones_origin)
 			duplicate_bones(outliner, bones_uuid, bones_uuid_names)
 			
-			console.log(bones_origin)
+			// console.log(bones_origin)
 			
 			if (animations !== null) {
 				for (let animation of animations) {
