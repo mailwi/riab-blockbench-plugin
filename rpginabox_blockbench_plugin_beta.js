@@ -204,38 +204,9 @@
 			
 			get_bones(bones, outliner)
 			
-			// console.log(bones)
-			
 			for (let m of Mesh.all) {
-				let mesh = new Mesh({
-					name: m.name,
-					color: m.color,
-					visibility: m.visibility,
-					rotation: m.rotation,
-					origin: m.origin,
-					vertices: m.vertices
-				})
-				
-				// mesh.quaternion = m.mesh.quaternion
-				mesh.parent = m.parent
-				
-				apply_mesh_rotation(mesh)
-				
-				let parent = mesh.parent
-					
-				let bone = bones[parent.uuid][0]
-				let bone_rotation = bones[parent.uuid][1]
-				let bone_origin = bones[parent.uuid][2]
-				
-				for (let i = bone_rotation.length - 1; i >= 0; i--) {
-					transfer_origin(mesh, bone_origin[i])
-					
-					mesh.rotation = [...bone_rotation[i]]
-					
-					apply_mesh_rotation(mesh)
-				}
-				
-				meshes[m.uuid] = mesh
+				meshes[m.uuid] = true
+				apply_mesh_rotation(m)
 			}
 			
 			let elements_to_delete = []
@@ -243,20 +214,10 @@
 			for (let element of elements) {
 				let mesh = meshes[element.uuid]
 				
-				if (mesh) {
-					element.vertices = mesh.vertices
-					element.rotation = mesh.rotation
-					element.origin = mesh.origin
-				} else {
+				if (!mesh) {
 					elements_to_delete.push(element)
 				}
-				
-				// let parent = bones[mesh.parent.uuid]
-				
-				// meshes[element.uuid] = [mesh, element]
 			}
-			
-			// get_parent(meshes, outliner)
 			
 			let i = 0
 			let elements_length = elements.length
@@ -547,17 +508,22 @@
 								let copied_keyframe = { ...keyframe }
 								let copied_data_points = []
 								
+								let bone = bones[animator_id]
+								
+								let bone_rotation = bone[1][bone[1].length - 1]
+								
 								let data_points = keyframe['data_points']
 								
 								for (let data_point of data_points) {
 									copied_data_points.push({
-										'x': data_point['x'],
-										'y': data_point['y'],
+										'x': (Number(data_point['x']) - bone_rotation[0]).toString(),
+										'y': (Number(data_point['y']) - bone_rotation[1]).toString(),
 										'z': '0'
 									})
 								
 									data_point['x'] = '0'
 									data_point['y'] = '0'
+									data_point['z'] = (Number(data_point['z']) + bone_rotation[2]).toString()
 								}
 								
 								copied_keyframe['data_points'] = copied_data_points
