@@ -1,5 +1,5 @@
 (function() {
-	var exportButton, exportButton2;
+	var exportButton, exportButton2, exportButton3, exportButton4
 	
 	Math.degrees = function(radians) {
 		return radians * 180 / Math.PI
@@ -191,7 +191,178 @@
 		}
 	}
 	
-	function convert(ignore_elements = false) {
+	function projectIntoOwnPlane(polygon) {
+		if (polygon.length < 3) {
+			return
+		}
+		
+		const plane = new THREE.Plane()
+		plane.setFromCoplanarPoints(polygon[0], polygon[1], polygon[2])
+		return projectOnPlane(polygon, plane)
+	}
+	
+	const reusableObject = new THREE.Object3D()
+	reusableObject.rotation.order = "XYZ"
+	function rotationFromDirection(
+		target,
+		targetEuler = new THREE.Euler(),
+		{ rotateX = 0, rotateY = 0, rotateZ = 0 } = {}
+	) {
+		reusableObject.lookAt(target)
+		reusableObject.rotateX(Math.degToRad(90))
+		reusableObject.rotateX(rotateX)
+		reusableObject.rotateY(rotateY)
+		reusableObject.rotateZ(rotateZ)
+
+		targetEuler.copy(reusableObject.rotation)
+		return targetEuler
+	}
+	
+	const reusableQuat1 = new THREE.Quaternion()
+	const reusableEuler1$1 = new THREE.Euler()
+	const reusableVec5$1 = new THREE.Vector3()
+	function projectOnPlane(polygonOrPoint, plane) {
+		const euler = rotationFromDirection(plane.normal, reusableEuler1$1)
+		const quat = reusableQuat1.setFromEuler(euler)
+		quat.invert()
+
+		if (polygonOrPoint instanceof Array) {
+		  return polygonOrPoint.map((e) => {
+			reusableVec5$1.copy(e)
+			reusableVec5$1.applyQuaternion(quat)
+			return new THREE.Vector2(reusableVec5$1.x, reusableVec5$1.z)
+		  })
+		}
+		reusableVec5$1.copy(polygonOrPoint)
+		reusableVec5$1.applyQuaternion(quat)
+		return new THREE.Vector2(reusableVec5$1.x, reusableVec5$1.z)
+	}
+	
+	function xKey(obj) {
+		if (obj instanceof THREE.Vector3 || obj instanceof THREE.Vector2) {
+		  return "x"
+		}
+		if (obj instanceof Array) {
+		  return 0
+		}
+		return null
+	}
+	
+	function yKey(obj) {
+		if (obj instanceof THREE.Vector3 || obj instanceof THREE.Vector2) {
+		  return "y"
+		}
+		if (obj instanceof Array) {
+		  return 1
+		}
+		return null
+	}
+	
+	function zKey(obj) {
+		if (obj instanceof THREE.Vector3) {
+		  return "z"
+		}
+		if (obj instanceof Array) {
+		  return 2
+		}
+		return null
+	}
+
+	function getX(obj) {
+		return obj[xKey(obj)]
+	}
+	
+	function getY(obj) {
+		return obj[yKey(obj)]
+	}
+	
+	function getZ(obj) {
+		return obj[zKey(obj)] ?? 0
+	}
+	
+	function lineSide(p, p1, p2) {
+		return Math.sign((p.x - p2.x) * (p1.y - p2.y) - (p1.x - p2.x) * (p.y - p2.y))
+	}
+	
+	function isPointInTriangle(point, point1, point2, point3) {
+		const d1 = lineSide(point, point1, point2)
+		const d2 = lineSide(point, point2, point3)
+		const d3 = lineSide(point, point3, point1)
+		const hasNegative = d1 < 0 || d2 < 0 || d3 < 0
+		const hasPositive = d1 > 0 || d2 > 0 || d3 > 0
+
+		return !(hasNegative && hasPositive)
+	}
+	
+	function isPolygonClockWise(polygon) {
+		if (polygon.length <= 2) {
+		  return true
+		}
+		let sum = 0
+		for (let i = 0; i < polygon.length; i++) {
+		  const vertexA = polygon[i]
+		  const vertexB = polygon[(i + 1) % polygon.length]
+		  sum += (getX(vertexB) - getX(vertexA)) * (getY(vertexB) - getY(vertexA))
+		}
+		return sum >= 0
+	}
+	
+	function getAdjacentElements(arr, index) {
+		return [
+		  arr[(index + 1 + arr.length) % arr.length],
+		  arr[index],
+		  arr[(index - 1 + arr.length) % arr.length]
+		]
+	}
+	
+	function triangulate(polygon) {
+		const vertices3d = polygon.map((v) => v.V3_toThree())
+		const indices = Array.from(Array(vertices3d.length).keys())
+		const triangles = []
+
+		const vertices = projectIntoOwnPlane(vertices3d)
+		const isClockWise = isPolygonClockWise(vertices)
+
+		const SAFETY_LIMIT = 100
+		let safetyIndex = 0
+		while (indices.length > 3 && safetyIndex <= SAFETY_LIMIT) {
+		  for (let i = 0; i < indices.length; i++) {
+			const [a, b, c] = getAdjacentElements(indices, i)
+
+			const vecAC = vertices[c].clone().sub(vertices[a])
+			const vecAB = vertices[b].clone().sub(vertices[a])
+
+			const cross = vecAC.x * vecAB.z - vecAC.z * vecAB.x
+			const isConcave = isClockWise ? cross <= 0 : cross >= 0
+			if (isConcave) continue
+
+			let someVertexLiesInsideEar = false
+			for (let j = 0; j < vertices.length; j++) {
+			  if (j === a || j === b || j === c) continue
+
+			  someVertexLiesInsideEar = isPointInTriangle(
+				vertices[j],
+				vertices[a],
+				vertices[b],
+				vertices[c]
+			  )
+			  if (someVertexLiesInsideEar) break
+			}
+			if (!someVertexLiesInsideEar) {
+			  triangles.push([a, b, c].sort((a, b) => b - a))
+			  indices.splice(i, 1)
+			  break;
+			}
+		  }
+		  safetyIndex++
+		}
+
+		triangles.push(indices.sort((a, b) => b - a))
+
+		return triangles
+	}
+	
+	function convert(ignore_elements = false, triangulate_faces = false, additional_face = false) {
 		Blockbench.readFile(Project.save_path, {}, (files) => {						
 			let data = JSON.parse(files[0].content)
 			
@@ -205,7 +376,7 @@
 			get_bones(bones, outliner)
 			
 			for (let m of Mesh.all) {
-				meshes[m.uuid] = true
+				meshes[m.uuid] = m
 				apply_mesh_rotation(m)
 			}
 			
@@ -294,38 +465,76 @@
 					let faces = element['faces']
 					let new_faces = {}
 					
+					let mesh = meshes[element.uuid]
+					
+					let mesh_faces = mesh.faces
+					
 					for (let k in faces) {
-						let faces_value = faces[k]
-						
-						let uv = faces_value['uv']
+						if (triangulate_faces) {
+							let mesh_face = mesh_faces[k]
+							
+							let mesh_vertices = mesh_face.getSortedVertices()
+							if (!(mesh_vertices.length <= 3)) {
+								let triangles = triangulate(
+									mesh_vertices.map((key) => mesh.vertices[key]),
+									mesh_face.getNormal(true)
+								)
+							  
+								let faces_value = faces[k]
+							
+								let uv = faces_value['uv']
 
-						let values = Object.values(uv)
+								let values = Object.values(uv)
+								
+								let vertices = faces_value['vertices']
+							  
+								for (let i = 0; i < triangles.length; i++) {
+									let vertices_copy = [
+										mesh_vertices[triangles[i][0]],
+										mesh_vertices[triangles[i][2]],
+										mesh_vertices[triangles[i][1]]
+									]
+
+									new_faces[k + i] = {
+										'uv': uv,
+										'vertices': vertices_copy
+									}	
+
+									if ('texture' in faces_value) {
+										new_faces[k + i]['texture'] = faces_value['texture']
+									}
+								}
+								
+								delete faces[k]
+							}
+						} else {
+							let faces_value = faces[k]
 						
-						let vertices = faces_value['vertices']
-						
-						let vertices_copy = [...vertices]
-						vertices_copy.reverse()
-						
-						
-						new_faces[k + '0'] = {
-							'uv': uv,
-							'vertices': vertices_copy
-						}	
-						
-						if ('texture' in faces_value) {
-							new_faces[k + '0']['texture'] = faces_value['texture']
-						}
-						
-						vertices_copy = [...vertices.slice(2, 4), ...vertices.slice(0, 2)]
-						
-						new_faces[k + '1'] = {
-							'uv': uv,
-							'vertices': vertices_copy
-						}
-						
-						
-						if ('texture' in faces_value) {
-							new_faces[k + '1']['texture'] = faces_value['texture']
+							let uv = faces_value['uv']
+
+							let values = Object.values(uv)
+							
+							let vertices = faces_value['vertices']
+							
+							let mesh_face = mesh_faces[k]
+							
+							if (additional_face) {
+								vertices_copy = [...vertices.slice(2, 4), ...vertices.slice(0, 2)]
+								
+								new_faces[k + '0'] = {
+									'uv': uv,
+									'vertices': vertices_copy
+								}
+								
+								if ('texture' in faces_value) {
+									new_faces[k + '0']['texture'] = faces_value['texture']
+								}
+							}
+							
+							if (mesh_face.vertices.length == 4) {
+								let new_vertices = mesh_face.getSortedVertices()
+								faces_value['vertices'] = new_vertices
+							}
 						}
 					}
 					
@@ -556,10 +765,10 @@ Requirements:
 		version: '1.0.0',
 		variant: 'both',
 		onload() {
-            exportButton = new Action('export_to_rpg_in_a_box_beta', {
-                name: 'Export to RPG in a Box (Beta)',
+            exportButton = new Action('export_to_rpg_in_a_box_basic', {
+                name: 'Export to RPG in a Box (Basic)',
 				category: 'file',
-                description: 'Export to RPG in a Box (Beta)',
+                description: 'Export to RPG in a Box (Basic)',
                 icon: 'fa-file-export',
                 click: function() {
 					convert()
@@ -567,7 +776,29 @@ Requirements:
             });
             MenuBar.addAction(exportButton, 'file.export.0');
 			
-			exportButton2 = new Action('export_to_rpg_in_a_box_ignore_meshes', {
+			exportButton2 = new Action('export_to_rpg_in_a_box_triangulate', {
+                name: 'Export to RPG in a Box (Triangulate)',
+				category: 'file',
+                description: 'Export to RPG in a Box (Triangulate)',
+                icon: 'fa-file-export',
+                click: function() {
+					convert(false, true)
+				}
+            });
+            MenuBar.addAction(exportButton2, 'file.export.1');
+			
+			exportButton3 = new Action('export_to_rpg_in_a_box_additional_face', {
+                name: 'Export to RPG in a Box (Additional face)',
+				category: 'file',
+                description: 'Export to RPG in a Box (Additional face)',
+                icon: 'fa-file-export',
+                click: function() {
+					convert(false, true, true)
+				}
+            });
+            MenuBar.addAction(exportButton3, 'file.export.2');
+			
+			exportButton4 = new Action('export_to_rpg_in_a_box_ignore_meshes', {
                 name: 'Export to RPG in a Box (Ignore meshes)',
 				category: 'file',
                 description: 'Export to RPG in a Box (Ignore meshes)',
@@ -576,11 +807,13 @@ Requirements:
 					convert(true)
 				}
             });
-            MenuBar.addAction(exportButton2, 'file.export.1');
+            MenuBar.addAction(exportButton4, 'file.export.3');
         },
         onunload() {
-            exportButton.delete();
-			exportButton2.delete();
+            exportButton.delete()
+			exportButton2.delete()
+			exportButton3.delete()
+			exportButton4.delete()
         }
 	});
 
